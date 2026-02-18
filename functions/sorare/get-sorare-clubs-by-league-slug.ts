@@ -6,7 +6,7 @@ const getSorareClubsByLeagueSlug = async (leagueSlug: string) => {
     football {
       competition(slug: $slug) {
         name
-        clubs(first: 20) {
+        clubs(first: 40) {
           nodes { slug name }
           pageInfo { hasNextPage endCursor }
         }

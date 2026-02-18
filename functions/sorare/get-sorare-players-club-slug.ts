@@ -14,7 +14,9 @@ query ClubPlayersBatch($clubSlug: String!) {
           position 
           age 
           averageScore5: averageScore (type: LAST_FIVE_SO5_AVERAGE_SCORE)
-          averageScore15: averageScore (type: LAST_FIFTEEN_SO5_AVERAGE_SCORE) }
+          averageScore15: averageScore (type: LAST_FIFTEEN_SO5_AVERAGE_SCORE) 
+          averageScore10Played: averageScore(type: LAST_TEN_PLAYED_SO5_AVERAGE_SCORE)
+        }
         pageInfo { hasNextPage endCursor }
       }
     }

@@ -2,12 +2,12 @@ import axios from 'axios';
 import getDaysBetweenDates from './get-days-between-dates';
 
 const getMatchesByDate = async (
-  leagueFotmobId: number,
+  leagueFotmobIds: number[],
   startDate: string,
   endDate: string,
 ) => {
   const dates = getDaysBetweenDates(startDate, endDate);
-  const competitionIds = [leagueFotmobId];
+  const competitionIds = leagueFotmobIds;
   const startTime = new Date(startDate).getTime();
   const endTime = new Date(endDate).getTime();
   const matches: { home: number; away: number; id: number }[] = [];
