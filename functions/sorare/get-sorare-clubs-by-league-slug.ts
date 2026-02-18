@@ -1,4 +1,4 @@
-import graphQLClient from './graphql-client';
+import graphQLClient from '../graphql/graphql-client';
 
 const getSorareClubsByLeagueSlug = async (leagueSlug: string) => {
   const query = `

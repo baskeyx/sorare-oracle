@@ -1,4 +1,4 @@
-import graphQLClient from './graphql-client';
+import graphQLClient from '../graphql/graphql-client';
 import getSorareConversions from './get-sorare-conversions';
 
 const WEI_PER_ETH = 1e18;
