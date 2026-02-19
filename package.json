@@ -9,6 +9,9 @@
   "scripts": {
     "start": "ts-node run.ts",
     "get-cards": "ts-node functions/sorare/get-cards.ts",
+    "check-clubs": "ts-node functions/check-clubs.ts",
+    "card-predictions": "ts-node run-card-predictions.ts",
+    "apply-starting-scores": "ts-node run-apply-starting-scores.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {

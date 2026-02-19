@@ -7,5 +7,5 @@
     "skipLibCheck": true,
     "moduleDetection": "force"
   },
-  "include": ["*.ts", "functions/**/*.ts"]
+  "include": ["*.ts", "functions/**/*.ts", "data/club-map-sorare-fotmob.ts"]
 }

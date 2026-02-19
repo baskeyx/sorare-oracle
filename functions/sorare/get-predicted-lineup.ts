@@ -45,10 +45,18 @@ const getSorarePredictedPowerLineupScore = async (
     const predictedPowerLineupScore =
       startingLineupScore + substituteLineupScore;
 
-    return predictedPowerLineupScore;
+    return {
+      predictedPowerLineupScore,
+      startingLineupScore,
+      substituteLineupScore,
+    };
   }
 
-  return 0;
+  return {
+    predictedPowerLineupScore: 0,
+    startingLineupScore: 0,
+    substituteLineupScore: 0,
+  };
 };
 
 export default getSorarePredictedPowerLineupScore;

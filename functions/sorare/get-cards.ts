@@ -1,10 +1,8 @@
 import connect from '../mongo/connect';
-import graphQLClient from '../graphql/graphql-client';
 import handleGraphQLRequestWithCursor from '../graphql/graphql-with-cursor';
 
 const getCards = async (owner: string) => {
   const { Cards } = await connect();
-  console.log(await Cards.deleteMany());
   const query = `
     query AllCardsFromUser($owner: String!, $cursor: String) {
       user(slug: $owner) {

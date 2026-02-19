@@ -1,73 +1,19 @@
 import getMatchOdds from './functions/fotmob/get-match-odds';
 import getMatchesByDate from './functions/get-matches-by-date';
-import { getNextSo5Gameweek } from './functions/get-next-gameweek';
+import { getNextSo5Gameweek } from './functions/sorare/get-next-gameweek';
 import getCheapestCardValue from './functions/sorare/get-cheapest-card-value';
 import getSorarePredictedPowerLineupScore from './functions/sorare/get-predicted-lineup';
 import getSorareClubsByLeagueSlug from './functions/sorare/get-sorare-clubs-by-league-slug';
 import getSorarePlayersByClubSlug from './functions/sorare/get-sorare-players-club-slug';
-import teamMap from './map';
+import { teamMap } from './data/club-map-sorare-fotmob';
 import fs from 'fs';
+import leagues from './data/competitions-map-sorare-fotmob';
 
 const main = async () => {
   const nextGameweek = await getNextSo5Gameweek();
 
-  const leagues = {
-    JP: {
-      leagueId: 223,
-      leagueSlug: 'j1-100-year-vision-league',
-    },
-    ES: {
-      leagueId: 87,
-      leagueSlug: 'laliga-es',
-    },
-    FR: {
-      leagueId: 53,
-      leagueSlug: 'ligue-1-fr',
-    },
-    DE: {
-      leagueId: 54,
-      leagueSlug: 'bundesliga-de',
-    },
-    IT: {
-      leagueId: 55,
-      leagueSlug: 'serie-a-it',
-    },
-    EN: {
-      leagueId: 47,
-      leagueSlug: 'premier-league-gb-eng',
-    },
-    BE: {
-      leagueId: 40,
-      leagueSlug: 'jupiler-pro-league',
-    },
-    TU: {
-      leagueId: 71,
-      leagueSlug: 'spor-toto-super-lig',
-    },
-    PT: {
-      leagueId: 61,
-      leagueSlug: 'primeira-liga-pt',
-    },
-    NL: {
-      leagueId: 57,
-      leagueSlug: 'eredivisie',
-    },
-    DN: {
-      leagueId: 46,
-      leagueSlug: 'superliga-dk',
-    },
-    US: {
-      leagueId: 130,
-      leagueSlug: 'mlspa',
-    },
-    UCL: {
-      leagueId: 42,
-    },
-  };
-
   // championship
   // bundes 2
-  // brazil
   // russia
   // austria
   // arg
@@ -78,11 +24,25 @@ const main = async () => {
   const scarcity = 'limited';
   const pointsPerPound = true;
 
-  const allLeagues = Object.values(leagues);
-  const allLeagueSlugs = allLeagues.map((league: any) => league.leagueSlug);
+  const leaguesToRun = ['EN'];
+  const minPredictedScore = 45;
 
-  const finalLeagueSlugs = [leagues['US'].leagueSlug];
-  const finalLeagueIds = [leagues['US'].leagueId];
+  console.log(leagues);
+
+  const leaguesToRunArray = [];
+
+  for (const league of leaguesToRun) {
+    leaguesToRunArray.push(leagues[league as keyof typeof leagues]);
+  }
+
+  const finalLeagueSlugs = leaguesToRunArray.map(
+    (league: any) => league.leagueSlug,
+  );
+  const finalLeagueIds = leaguesToRunArray.map(
+    (league: any) => league.leagueId,
+  );
+
+  console.log(finalLeagueSlugs, finalLeagueIds);
 
   const matches = await getMatchesByDate(
     finalLeagueIds,
@@ -102,7 +62,6 @@ const main = async () => {
 
   for (const leagueSlug of finalLeagueSlugs) {
     const sorareClubs = await getSorareClubsByLeagueSlug(leagueSlug);
-    console.log(sorareClubs);
     for (const club of sorareClubs) {
       const sorarePlayers = await getSorarePlayersByClubSlug(club.slug);
       for (const player of sorarePlayers) {
@@ -134,19 +93,19 @@ const main = async () => {
   if (pointsPerPound) {
     const finalPlayers = [];
     for (const player of sortedPlayers.filter(
-      (player) => player.predictedScore > 50,
+      (player) => player.predictedScore > minPredictedScore,
     )) {
       const cheapestCardValue = await getCheapestCardValue(
         player.slug,
         scarcity,
         inSeason,
       );
-      const predictedPowerLineupScore =
+      const { predictedPowerLineupScore } =
         await getSorarePredictedPowerLineupScore(
           player.slug,
           player.predictedScore,
         );
-      if (predictedPowerLineupScore > 50) {
+      if (predictedPowerLineupScore > minPredictedScore) {
         const pointsPerPound = predictedPowerLineupScore / cheapestCardValue;
         finalPlayers.push({
           ...player,
@@ -157,7 +116,7 @@ const main = async () => {
       }
     }
     fs.writeFileSync(
-      'finalPlayers.json',
+      'json/purchase-recommendations.json',
       JSON.stringify(
         finalPlayers.sort((a, b) => b.pointsPerPound - a.pointsPerPound),
         null,
@@ -167,7 +126,7 @@ const main = async () => {
     );
   } else {
     fs.writeFileSync(
-      'finalPlayers.json',
+      'json/purchase-recommendations.json',
       JSON.stringify(sortedPlayers, null, 2),
       'utf8',
     );
