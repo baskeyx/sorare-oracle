@@ -12,6 +12,9 @@
     "check-clubs": "ts-node functions/check-clubs.ts",
     "card-predictions": "ts-node run-card-predictions.ts",
     "apply-starting-scores": "ts-node run-apply-starting-scores.ts",
+    "build-teams": "ts-node build-teams.ts",
+    "remove-cards": "ts-node remove.ts",
+    "quick-play": "ts-node quick-play.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {

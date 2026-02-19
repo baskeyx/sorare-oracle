@@ -3,6 +3,7 @@ import handleGraphQLRequestWithCursor from '../graphql/graphql-with-cursor';
 
 const getCards = async (owner: string) => {
   const { Cards } = await connect();
+  await Cards.deleteMany({ owner });
   const query = `
     query AllCardsFromUser($owner: String!, $cursor: String) {
       user(slug: $owner) {

@@ -9,43 +9,32 @@ import { teamMap } from './data/club-map-sorare-fotmob';
 import fs from 'fs';
 import leagues from './data/competitions-map-sorare-fotmob';
 
+/** When true, wait RATE_LIMIT_SECONDS between each API loop iteration to avoid "too many requests". */
+const RATE_LIMIT_ENABLED = true;
+const RATE_LIMIT_SECONDS = 2;
+
+const rateLimit = () =>
+  RATE_LIMIT_ENABLED
+    ? new Promise((r) => setTimeout(r, RATE_LIMIT_SECONDS * 1000))
+    : Promise.resolve();
+
 const main = async () => {
   const nextGameweek = await getNextSo5Gameweek();
-
-  // championship
-  // bundes 2
-  // russia
-  // austria
-  // arg
-  // liga mx
-  // kleague
-
-  const inSeason = true;
+  const inSeason = false;
   const scarcity = 'limited';
   const pointsPerPound = true;
 
-  const leaguesToRun = ['EN'];
-  const minPredictedScore = 45;
+  const minPredictedScore = 50;
 
-  console.log(leagues);
+  const leagueIds = Object.values(leagues).map((league) => league.leagueId);
+  const leagueSlugs = Object.values(leagues)
+    .filter((league) => league.leagueId !== 42)
+    .map((league) => league.leagueSlug);
 
-  const leaguesToRunArray = [];
-
-  for (const league of leaguesToRun) {
-    leaguesToRunArray.push(leagues[league as keyof typeof leagues]);
-  }
-
-  const finalLeagueSlugs = leaguesToRunArray.map(
-    (league: any) => league.leagueSlug,
-  );
-  const finalLeagueIds = leaguesToRunArray.map(
-    (league: any) => league.leagueId,
-  );
-
-  console.log(finalLeagueSlugs, finalLeagueIds);
+  console.log(leagueSlugs);
 
   const matches = await getMatchesByDate(
-    finalLeagueIds,
+    leagueIds,
     nextGameweek.gameweekStart,
     nextGameweek.gameweekEnd,
   );
@@ -56,14 +45,17 @@ const main = async () => {
     const odds = await getMatchOdds(match.id);
     teamOdds[match.home] = odds.percentage.home;
     teamOdds[match.away] = odds.percentage.away;
+    await rateLimit();
   }
 
   const players: any[] = [];
 
-  for (const leagueSlug of finalLeagueSlugs) {
+  for (const leagueSlug of leagueSlugs) {
     const sorareClubs = await getSorareClubsByLeagueSlug(leagueSlug);
+    await rateLimit();
     for (const club of sorareClubs) {
       const sorarePlayers = await getSorarePlayersByClubSlug(club.slug);
+      await rateLimit();
       for (const player of sorarePlayers) {
         const { averageScore5, averageScore15, averageScore10Played } = player;
         const w15 = 0.55;
@@ -114,6 +106,7 @@ const main = async () => {
           predictedPowerLineupScore,
         });
       }
+      await rateLimit();
     }
     fs.writeFileSync(
       'json/purchase-recommendations.json',

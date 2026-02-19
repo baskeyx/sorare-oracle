@@ -22,12 +22,18 @@ const applyStartingScores = async () => {
   }
 
   for (const player of actualPlayers) {
-    player.startingScore = playersMap[player.slug];
+    player.FinalPredictedScore = playersMap[player.slug];
   }
 
   fs.writeFileSync(
     'json/actual-players-with-starting-scores.json',
-    JSON.stringify(actualPlayers, null, 2),
+    JSON.stringify(
+      actualPlayers.sort(
+        (a: any, b: any) => b.FinalPredictedScore - a.FinalPredictedScore,
+      ),
+      null,
+      2,
+    ),
     'utf8',
   );
 };

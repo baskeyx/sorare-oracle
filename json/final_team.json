@@ -1,0 +1,128 @@
+{
+  "totalLineupsEvaluated": 68934,
+  "best": {
+    "cards": [
+      {
+        "id": "0x040089b94d605f82139531f4445c2c5c0f1696fd785bb43d174fbff95828d776",
+        "slug": "kouakou-herve-koffi",
+        "name": "Hervé Koffi",
+        "position": "Goalkeeper",
+        "FinalPredictedScore": 32.4,
+        "averageScore10Played": 44,
+        "power": 1.06,
+        "clubSlug": "angers-sco-angers"
+      },
+      {
+        "id": "0x04006d629a3156ec5deda65870d96ca8afb9493408695e9992a28ece40e0a638",
+        "slug": "ezri-konsa-ngoyo",
+        "name": "Ezri Konsa",
+        "position": "Defender",
+        "FinalPredictedScore": 50.4,
+        "averageScore10Played": 58,
+        "power": 1.15,
+        "clubSlug": "aston-villa-birmingham"
+      },
+      {
+        "id": "0x040044eb04167c1863be3c3478ee066bae5df67bf4200744835bc581f0413610",
+        "slug": "pietro-comuzzo",
+        "name": "Pietro Comuzzo",
+        "position": "Defender",
+        "FinalPredictedScore": 40,
+        "averageScore10Played": 47,
+        "power": 1.04,
+        "clubSlug": "fiorentina-firenze"
+      },
+      {
+        "id": "0x04009f283aa8e51b5ae77b798a3b4df13c59e47320a7c166a72b2d21a38e6325",
+        "slug": "rolando-mandragora",
+        "name": "Rolando Mandragora",
+        "position": "Midfielder",
+        "FinalPredictedScore": 54,
+        "averageScore10Played": 54,
+        "power": 1.06,
+        "clubSlug": "fiorentina-firenze"
+      },
+      {
+        "id": "0x0400e7389cab4817d9523fa52682bd30ded5d83e64537c6ca14cf059dcf4871d",
+        "slug": "douglas-luiz-soares-de-paulo",
+        "name": "Douglas Luiz",
+        "position": "Midfielder",
+        "FinalPredictedScore": 41.6,
+        "averageScore10Played": 48,
+        "power": 1.11,
+        "clubSlug": "aston-villa-birmingham"
+      },
+      {
+        "id": "0x040074403a8a29aebc4f26d5882aa30ff7b21e06fecbbf21716be1e58b4518b6",
+        "slug": "nicolo-zaniolo",
+        "name": "Nicolò Zaniolo",
+        "position": "Forward",
+        "FinalPredictedScore": 31.5,
+        "averageScore10Played": 50,
+        "power": 1.14,
+        "clubSlug": "udinese-udine"
+      },
+      {
+        "id": "0x0400aa3993b801be981a13b4399f60a4f03b8ce36e922ab105097ed19b026f0e",
+        "slug": "rassoul-n-diaye",
+        "name": "Rassoul Ndiaye",
+        "position": "Midfielder",
+        "FinalPredictedScore": 40.5,
+        "averageScore10Played": 57,
+        "power": 1.03,
+        "clubSlug": "le-havre-harfleur"
+      }
+    ],
+    "captainSlug": "ezri-konsa-ngoyo",
+    "baseScore": 343.92500000000007,
+    "totalScore": 364.5605000000001,
+    "capUsed": false,
+    "bonusCapUsed": true,
+    "sameTeamBonusUsed": true,
+    "pointsBreakdown": {
+      "cardContributions": [
+        {
+          "slug": "kouakou-herve-koffi",
+          "score": 34.344,
+          "isCaptain": false
+        },
+        {
+          "slug": "ezri-konsa-ngoyo",
+          "score": 86.94,
+          "isCaptain": true
+        },
+        {
+          "slug": "pietro-comuzzo",
+          "score": 41.6,
+          "isCaptain": false
+        },
+        {
+          "slug": "rolando-mandragora",
+          "score": 57.24,
+          "isCaptain": false
+        },
+        {
+          "slug": "douglas-luiz-soares-de-paulo",
+          "score": 46.17600000000001,
+          "isCaptain": false
+        },
+        {
+          "slug": "nicolo-zaniolo",
+          "score": 35.91,
+          "isCaptain": false
+        },
+        {
+          "slug": "rassoul-n-diaye",
+          "score": 41.715,
+          "isCaptain": false
+        }
+      ],
+      "sumWithoutCaptain": 314.94500000000005,
+      "captainBonusAmount": 28.979999999999997,
+      "baseScore": 343.92500000000007,
+      "bonusCapAmount": 13.757000000000016,
+      "sameTeamBonusAmount": 6.878500000000008,
+      "totalScore": 364.5605000000001
+    }
+  }
+}

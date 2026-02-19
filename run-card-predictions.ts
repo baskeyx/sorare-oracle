@@ -13,7 +13,9 @@ const run = async () => {
 
   console.log(gameweekSlug);
 
-  const finalLeagueIds = [leagues['EN'].leagueId];
+  const finalLeagueIds = Object.values(leagues).map(
+    (league) => league.leagueId,
+  );
 
   const matches = await getMatchesByDate(
     finalLeagueIds,
@@ -51,9 +53,14 @@ const run = async () => {
 
   fs.writeFileSync(
     'json/predicted-cards.json',
-    JSON.stringify(predictedCards, null, 2),
+    JSON.stringify(
+      predictedCards.sort((a, b) => b.predictedScore - a.predictedScore),
+      null,
+      2,
+    ),
     'utf8',
   );
+  console.log('Done');
 };
 
 run();

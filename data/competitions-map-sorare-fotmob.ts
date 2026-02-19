@@ -59,8 +59,49 @@ const leagues = {
     leagueId: 112,
     leagueSlug: 'superliga-argentina-de-futbol',
   },
+  RU: {
+    leagueId: 63,
+    leagueSlug: 'russian-premier-league',
+  },
+  IT2: {
+    leagueId: 86,
+    leagueSlug: 'serie-b-it',
+  },
+  KO: {
+    leagueId: 9080,
+    leagueSlug: 'k-league-1',
+  },
+  ES2: {
+    leagueId: 140,
+    leagueSlug: 'segunda-division-es',
+  },
+  SC: {
+    leagueId: 64,
+    leagueSlug: 'premiership-gb-sct',
+  },
+  CH: {
+    leagueId: 69,
+    leagueSlug: 'super-league-ch',
+  },
+  MX: {
+    leagueId: 230,
+    leagueSlug: 'liga-mx',
+  },
+  AT: {
+    leagueId: 38,
+    leagueSlug: 'austrian-bundesliga',
+  },
+  DE2: {
+    leagueId: 146,
+    leagueSlug: '2-bundesliga',
+  },
+  FR2: {
+    leagueId: 110,
+    leagueSlug: 'ligue-2-fr',
+  },
   UCL: {
     leagueId: 42,
+    leagueSlug: 'uefa-champions-league',
   },
 };
 
