@@ -1,6 +1,12 @@
 import graphQLClient from '../graphql/graphql-client';
 import getSorareConversions from './get-sorare-conversions';
 
+const RETRY_DELAY_MS = 3000;
+
+function isInvalidCursorError(err: unknown): boolean {
+  return err instanceof Error && err.message.includes('Invalid cursor');
+}
+
 const WEI_PER_ETH = 1e18;
 
 type Amounts = {
@@ -49,10 +55,7 @@ const getCheapestCardValue = async (
   const inSeason = inSeasonEligible
     ? `, inSeasonEligible: ${inSeasonEligible}`
     : '';
-  const [conversions, data] = await Promise.all([
-    getSorareConversions(),
-    graphQLClient.request(
-      `
+  const query = `
     query PlayerPrices($slug: String!) {
       anyPlayer(slug: $slug) {
         displayName
@@ -77,10 +80,39 @@ const getCheapestCardValue = async (
         }
       }
     }
-  `,
-      { slug },
-    ),
-  ]);
+  `;
+  const variables = { slug };
+
+  const runRequest = () =>
+    graphQLClient.request<{
+      anyPlayer?: {
+        anyCards?: {
+          nodes?: Array<{
+            lowestPriceCard?: {
+              liveSingleSaleOffer?: { receiverSide?: { amounts?: Amounts } };
+            };
+          }>;
+        };
+      };
+    }>(query, variables);
+
+  let data: Awaited<ReturnType<typeof runRequest>>;
+  let conversions: Awaited<ReturnType<typeof getSorareConversions>>;
+  try {
+    const [conv, result] = await Promise.all([
+      getSorareConversions(),
+      runRequest(),
+    ]);
+    conversions = conv;
+    data = result;
+  } catch (err) {
+    if (!isInvalidCursorError(err)) throw err;
+    await new Promise((r) => setTimeout(r, RETRY_DELAY_MS));
+    [conversions, data] = await Promise.all([
+      getSorareConversions(),
+      runRequest(),
+    ]);
+  }
 
   const amounts = data.anyPlayer?.anyCards?.nodes?.[0]?.lowestPriceCard
     ?.liveSingleSaleOffer?.receiverSide?.amounts as Amounts | undefined;

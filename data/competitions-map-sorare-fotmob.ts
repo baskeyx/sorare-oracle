@@ -99,10 +99,26 @@ const leagues = {
     leagueId: 110,
     leagueSlug: 'ligue-2-fr',
   },
-  UCL: {
-    leagueId: 42,
-    leagueSlug: 'uefa-champions-league',
-  },
+  // UCL: {
+  //   leagueId: 42,
+  //   leagueSlug: 'uefa-champions-league',
+  // },
+  // UEL: {
+  //   leagueId: 73,
+  //   leagueSlug: 'uefa-europa-league',
+  // },
+  // CL: {
+  //   leagueId: 10216,
+  //   leagueSlug: 'conference-league',
+  // },
+  // CCC: {
+  //   leagueId: 297,
+  //   leagueSlug: 'concacaf-champions-cup',
+  // },
+  // ACL: {
+  //   leagueId: 525,
+  //   leagueSlug: 'asian-champions-league',
+  // },
 };
 
 export default leagues;

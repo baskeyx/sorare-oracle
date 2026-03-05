@@ -1,128 +1,128 @@
 {
-  "totalLineupsEvaluated": 68934,
+  "totalLineupsEvaluated": 42208947,
   "best": {
     "cards": [
       {
-        "id": "0x040089b94d605f82139531f4445c2c5c0f1696fd785bb43d174fbff95828d776",
-        "slug": "kouakou-herve-koffi",
-        "name": "Hervé Koffi",
+        "id": "0x04006f11d17fa1e991895219820d6105c8527eb60d58666b5580aad46f78e83c",
+        "slug": "jose-pedro-malheiro-de-sa",
+        "name": "José Sá",
         "position": "Goalkeeper",
-        "FinalPredictedScore": 32.4,
-        "averageScore10Played": 44,
-        "power": 1.06,
-        "clubSlug": "angers-sco-angers"
-      },
-      {
-        "id": "0x04006d629a3156ec5deda65870d96ca8afb9493408695e9992a28ece40e0a638",
-        "slug": "ezri-konsa-ngoyo",
-        "name": "Ezri Konsa",
-        "position": "Defender",
-        "FinalPredictedScore": 50.4,
-        "averageScore10Played": 58,
-        "power": 1.15,
-        "clubSlug": "aston-villa-birmingham"
-      },
-      {
-        "id": "0x040044eb04167c1863be3c3478ee066bae5df67bf4200744835bc581f0413610",
-        "slug": "pietro-comuzzo",
-        "name": "Pietro Comuzzo",
-        "position": "Defender",
-        "FinalPredictedScore": 40,
-        "averageScore10Played": 47,
-        "power": 1.04,
-        "clubSlug": "fiorentina-firenze"
-      },
-      {
-        "id": "0x04009f283aa8e51b5ae77b798a3b4df13c59e47320a7c166a72b2d21a38e6325",
-        "slug": "rolando-mandragora",
-        "name": "Rolando Mandragora",
-        "position": "Midfielder",
-        "FinalPredictedScore": 54,
-        "averageScore10Played": 54,
-        "power": 1.06,
-        "clubSlug": "fiorentina-firenze"
-      },
-      {
-        "id": "0x0400e7389cab4817d9523fa52682bd30ded5d83e64537c6ca14cf059dcf4871d",
-        "slug": "douglas-luiz-soares-de-paulo",
-        "name": "Douglas Luiz",
-        "position": "Midfielder",
-        "FinalPredictedScore": 41.6,
-        "averageScore10Played": 48,
+        "FinalPredictedScore": 26.400000000000002,
+        "averageScore10Played": 52,
         "power": 1.11,
+        "clubSlug": "wolverhampton-wanderers-wolverhampton"
+      },
+      {
+        "id": "0x040010a5d93d78d9016c43acb91f113e1220ef7567d2b22296803682be2434b6",
+        "slug": "hayato-araki",
+        "name": "Hayato Araki",
+        "position": "Defender",
+        "FinalPredictedScore": 42.400000000000006,
+        "averageScore10Played": 59,
+        "power": 1.07,
+        "clubSlug": "sanfrecce-hiroshima-hiroshima"
+      },
+      {
+        "id": "0x04002d48eb9798999dc625a60eddb93aba09383f53fb397a7c5ea807f70bb16c",
+        "slug": "aaron-wan-bissaka",
+        "name": "Aaron Wan-Bissaka",
+        "position": "Defender",
+        "FinalPredictedScore": 36.9,
+        "averageScore10Played": 49,
+        "power": 1.07,
+        "clubSlug": "west-ham-united-london"
+      },
+      {
+        "id": "0x04000f959ba6dee082066cd9455c9887e8fc4f1530237c30d3711f949a98ddf1",
+        "slug": "amadou-zeund-georges-mvom-onana",
+        "name": "Amadou Onana",
+        "position": "Midfielder",
+        "FinalPredictedScore": 34.4,
+        "averageScore10Played": 49,
+        "power": 1.06,
         "clubSlug": "aston-villa-birmingham"
       },
       {
-        "id": "0x040074403a8a29aebc4f26d5882aa30ff7b21e06fecbbf21716be1e58b4518b6",
-        "slug": "nicolo-zaniolo",
-        "name": "Nicolò Zaniolo",
-        "position": "Forward",
-        "FinalPredictedScore": 31.5,
+        "id": "0x0400218e25022f51d3f7cd880592de81e6ab88cfd9881d364ab63aa0394311a9",
+        "slug": "sandro-tonali",
+        "name": "Sandro Tonali",
+        "position": "Midfielder",
+        "FinalPredictedScore": 34.4,
         "averageScore10Played": 50,
-        "power": 1.14,
-        "clubSlug": "udinese-udine"
+        "power": 1.07,
+        "clubSlug": "newcastle-united-newcastle-upon-tyne"
       },
       {
-        "id": "0x0400aa3993b801be981a13b4399f60a4f03b8ce36e922ab105097ed19b026f0e",
-        "slug": "rassoul-n-diaye",
-        "name": "Rassoul Ndiaye",
-        "position": "Midfielder",
-        "FinalPredictedScore": 40.5,
-        "averageScore10Played": 57,
-        "power": 1.03,
-        "clubSlug": "le-havre-harfleur"
+        "id": "0x0400ca06a6da64a2a651c9dccb3052a52e2ecf13880c219305a6e5c5e24e20a1",
+        "slug": "yoshinori-muto",
+        "name": "Yoshinori Muto",
+        "position": "Forward",
+        "FinalPredictedScore": 40.800000000000004,
+        "averageScore10Played": 56,
+        "power": 1.04,
+        "clubSlug": "vissel-kobe-kobe"
+      },
+      {
+        "id": "0x0400dd4e8d8498d203f08a2167b8bd3fbb89e15be39ed0a7b6fb5f4e146f9cf0",
+        "slug": "matty-cash",
+        "name": "Matty Cash",
+        "position": "Defender",
+        "FinalPredictedScore": 36,
+        "averageScore10Played": 55,
+        "power": 1.13,
+        "clubSlug": "aston-villa-birmingham"
       }
     ],
-    "captainSlug": "ezri-konsa-ngoyo",
-    "baseScore": 343.92500000000007,
-    "totalScore": 364.5605000000001,
+    "captainSlug": "hayato-araki",
+    "baseScore": 293.22300000000007,
+    "totalScore": 310.8163800000001,
     "capUsed": false,
     "bonusCapUsed": true,
     "sameTeamBonusUsed": true,
     "pointsBreakdown": {
       "cardContributions": [
         {
-          "slug": "kouakou-herve-koffi",
-          "score": 34.344,
+          "slug": "jose-pedro-malheiro-de-sa",
+          "score": 29.304000000000006,
           "isCaptain": false
         },
         {
-          "slug": "ezri-konsa-ngoyo",
-          "score": 86.94,
+          "slug": "hayato-araki",
+          "score": 68.05200000000002,
           "isCaptain": true
         },
         {
-          "slug": "pietro-comuzzo",
-          "score": 41.6,
+          "slug": "aaron-wan-bissaka",
+          "score": 39.483000000000004,
           "isCaptain": false
         },
         {
-          "slug": "rolando-mandragora",
-          "score": 57.24,
+          "slug": "amadou-zeund-georges-mvom-onana",
+          "score": 36.464,
           "isCaptain": false
         },
         {
-          "slug": "douglas-luiz-soares-de-paulo",
-          "score": 46.17600000000001,
+          "slug": "sandro-tonali",
+          "score": 36.808,
           "isCaptain": false
         },
         {
-          "slug": "nicolo-zaniolo",
-          "score": 35.91,
+          "slug": "yoshinori-muto",
+          "score": 42.43200000000001,
           "isCaptain": false
         },
         {
-          "slug": "rassoul-n-diaye",
-          "score": 41.715,
+          "slug": "matty-cash",
+          "score": 40.67999999999999,
           "isCaptain": false
         }
       ],
-      "sumWithoutCaptain": 314.94500000000005,
-      "captainBonusAmount": 28.979999999999997,
-      "baseScore": 343.92500000000007,
-      "bonusCapAmount": 13.757000000000016,
-      "sameTeamBonusAmount": 6.878500000000008,
-      "totalScore": 364.5605000000001
+      "sumWithoutCaptain": 270.53900000000004,
+      "captainBonusAmount": 22.684000000000005,
+      "baseScore": 293.22300000000007,
+      "bonusCapAmount": 11.728920000000013,
+      "sameTeamBonusAmount": 5.8644600000000064,
+      "totalScore": 310.8163800000001
     }
   }
 }

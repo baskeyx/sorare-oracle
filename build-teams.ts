@@ -5,6 +5,15 @@ import {
   laLigaTeamMap,
   ligue1TeamMap,
   jLeagueTeamMap,
+  teamMap,
+  portugalTeamMap,
+  turkishTeamMap,
+  danishTeamMap,
+  austrianTeamMap,
+  scottishTeamMap,
+  championsLeagueTeamMap,
+  europaLeagueTeamMap,
+  conferenceLeagueTeamMap,
 } from './data/club-map-sorare-fotmob';
 import fs from 'fs';
 
@@ -16,11 +25,22 @@ const championEuropeTeamSlugs = [
   ...ligue1TeamMap,
 ];
 
+const challengerTeamSlugs = [
+  ...portugalTeamMap,
+  ...turkishTeamMap,
+  ...danishTeamMap,
+  ...austrianTeamMap,
+  ...scottishTeamMap,
+  ...serieATeamMap,
+];
+
+const teamSlugs = [...Object.keys(teamMap)];
+
 const filters: Filters = {
-  scarcities: ['super_rare'],
+  scarcities: ['limited', 'rare', 'super_rare'],
   u23Eligible: null, // set to true to require U23 only; null = any
   editions: [], // e.g. ['winter'] or [] for any edition
-  teamSlugs: [...(championEuropeTeamSlugs as string[])],
+  teamSlugs, //...(championEuropeTeamSlugs) // ...Object.keys(teamMap)
 };
 
 const parameters: Parameters = {

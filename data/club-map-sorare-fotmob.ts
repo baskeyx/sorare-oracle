@@ -598,6 +598,149 @@ const jLeagueTeamMap = [
   'yokohama-f-marinos-yokohama',
 ];
 
+const portugalTeamMap = [
+  'avs-vila-das-aves',
+  'alverca-alverca',
+  'arouca-arouca',
+  'casa-pia-lisboa',
+  'estoril-estoril',
+  'estrela-amadora',
+  'famalicao-vila-nova-de-famalicao',
+  'gil-vicente-barcelos',
+  'moreirense-moreira-de-conegos',
+  'nacional-funchal-ilha-da-madeira',
+  'porto-porto',
+  'rio-ave-vila-do-conde',
+  'santa-clara-ponta-delgada-ilha-de-sao-miguel-acores',
+  'sporting-braga-braga',
+  'sporting-cp-lisboa',
+  'tondela-tondela',
+  'vitoria-guimaraes-guimaraes',
+  'benfica-lisboa',
+];
+
+const turkishTeamMap = [
+  'alanyaspor-alanya',
+  'antalyaspor-antalya',
+  'besiktas-istanbul',
+  'eyupspor-istanbul',
+  'fatih-karagumruk-istanbul',
+  'fenerbahce-istanbul',
+  'gazisehir-gaziantep-gaziantep',
+  'genclerbirligi-ankara',
+  'goztepe-izmir',
+  'kasimpasa-istanbul',
+  'kayserispor-kayseri',
+  'kocaelispor-izmet',
+  'konyaspor-konya',
+  'rizespor-rize',
+  'samsunspor-samsun',
+  'trabzonspor-trabzon',
+  'istanbul-basaksehir-istanbul',
+  'galatasaray-istanbul',
+];
+
+const danishTeamMap = [
+  'agf-arhus',
+  'brondby-brondby',
+  'fredericia-fredericia',
+  'kobenhavn-kobenhavn',
+  'midtjylland-herning',
+  'nordsjaelland-farum',
+  'ob-odense',
+  'randers-randers',
+  'silkeborg-silkeborg',
+  'sonderjyske-haderslev',
+  'vejle-vejle',
+  'viborg-viborg',
+];
+
+const austrianTeamMap = [
+  'austria-wien-wien',
+  'blau-weiss-linz-linz',
+  'grazer-ak-graz',
+  'hartberg-hartberg',
+  'lask-linz',
+  'rapid-wien-wien',
+  'ried-ried-im-innkreis',
+  'rheindorf-altach-altach',
+  'salzburg-wals-siezenheim',
+  'sturm-graz-graz',
+  'wattens-wattens',
+  'wolfsberger-ac-wolfsberg',
+];
+
+const scottishTeamMap = [
+  'aberdeen-aberdeen',
+  'celtic-glasgow',
+  'dundee-dundee',
+  'dundee-united-dundee',
+  'falkirk-falkirk',
+  'hearts-edinburgh',
+  'hibernian-edinburgh',
+  'kilmarnock-kilmarnock',
+  'livingston-livingston',
+  'motherwell-motherwell',
+  'rangers-glasgow',
+  'st-mirren-paisley',
+];
+
+const championsLeagueTeamMap = [
+  'atletico-madrid-madrid',
+  'club-brugge-brugge',
+  'galatasaray-istanbul',
+  'qarabag-baki-baku',
+  'bodo-glimt-bodo',
+  'benfica-lisboa',
+  'psg-paris',
+  'real-madrid-madrid',
+  'liverpool-liverpool',
+  'juventus-torino',
+  'paris-paris',
+  'barcelona-barcelona',
+  'bayern-munchen-munchen',
+  'olympiakos-piraeus-pireas-piraeus',
+  'bayer-leverkusen-leverkusen',
+  'inter-milan-milano',
+  'newcastle-united-newcastle-upon-tyne',
+  'atalanta-ciserano',
+  'dortmund-dortmund',
+  'monaco-monaco',
+];
+
+const europaLeagueTeamMap = [
+  'lille-villeneuve-d-ascq',
+  'stuttgart-stuttgart',
+  'celtic-glasgow',
+  'bologna-bologna',
+  'celta-de-vigo-vigo',
+  'genk-genk',
+  'zagreb-zagreb',
+  'nottingham-forest-nottingham',
+  'fenerbahce-istanbul',
+];
+
+const conferenceLeagueTeamMap = [
+  'fiorentina-firenze',
+  'az-alkmaar',
+  'cystal-palace-london',
+];
+
+const kLeagueTeamMap = [
+  'anyang-anyang',
+  'bucheon-1995-bucheon',
+  'daejeon-citizen-daejeon',
+  'gangwon-gangneung',
+  'gwangju-gwangju',
+  'incheon-united-incheon',
+  'jeju-united-seogwipo-jeju-do',
+  'jeonbuk-motors-jeonju',
+  'pohang-steelers-pohang',
+  'sangju-sangmu-sangju', // Gimcheon Sangmu
+  'seoul-seoul',
+  'ulsan-ulsan',
+];
+
 export {
   teamMap,
   premierLeagueTeamMap,
@@ -606,4 +749,13 @@ export {
   laLigaTeamMap,
   ligue1TeamMap,
   jLeagueTeamMap,
+  portugalTeamMap,
+  turkishTeamMap,
+  danishTeamMap,
+  austrianTeamMap,
+  scottishTeamMap,
+  championsLeagueTeamMap,
+  europaLeagueTeamMap,
+  conferenceLeagueTeamMap,
+  kLeagueTeamMap,
 };

@@ -1,4 +1,6 @@
-import getMatchOdds from './functions/fotmob/get-match-odds';
+import getMatchOdds, {
+  addPlayerSlugToOverwriteOdds,
+} from './functions/fotmob/get-match-odds';
 import getMatchesByDate from './functions/get-matches-by-date';
 import { getNextSo5Gameweek } from './functions/sorare/get-next-gameweek';
 import getCheapestCardValue from './functions/sorare/get-cheapest-card-value';
@@ -10,8 +12,9 @@ import fs from 'fs';
 import leagues from './data/competitions-map-sorare-fotmob';
 
 /** When true, wait RATE_LIMIT_SECONDS between each API loop iteration to avoid "too many requests". */
-const RATE_LIMIT_ENABLED = true;
+const RATE_LIMIT_ENABLED = false;
 const RATE_LIMIT_SECONDS = 2;
+const isLineupOddsEnabled = true;
 
 const rateLimit = () =>
   RATE_LIMIT_ENABLED
@@ -20,18 +23,36 @@ const rateLimit = () =>
 
 const main = async () => {
   const nextGameweek = await getNextSo5Gameweek();
-  const inSeason = false;
+  const inSeason = true;
   const scarcity = 'limited';
-  const pointsPerPound = true;
 
   const minPredictedScore = 50;
+  const top5Leagues = ['KO'];
 
-  const leagueIds = Object.values(leagues).map((league) => league.leagueId);
-  const leagueSlugs = Object.values(leagues)
-    .filter((league) => league.leagueId !== 42)
-    .map((league) => league.leagueSlug);
+  const top5LeaguesObject = top5Leagues.reduce(
+    (
+      acc: Record<string, (typeof leagues)[keyof typeof leagues]>,
+      league: string,
+    ) => {
+      acc[league] = leagues[league as keyof typeof leagues];
+      return acc;
+    },
+    {},
+  );
 
-  console.log(leagueSlugs);
+  //  const leagueIds = Object.values(leagues).map((league) => league.leagueId);
+  //   const leagueSlugs = Object.values(leagues)
+  //     .filter((league) => league.leagueId !== 42)
+  //     .map((league) => league.leagueSlug);
+
+  const leagueIds = Object.values(top5LeaguesObject).map(
+    (league) => league.leagueId,
+  );
+  const leagueSlugs = Object.values(top5LeaguesObject).map(
+    (league) => league.leagueSlug,
+  );
+
+  console.log(leagueIds, leagueSlugs);
 
   const matches = await getMatchesByDate(
     leagueIds,
@@ -40,11 +61,15 @@ const main = async () => {
   );
 
   const teamOdds: { [key: number]: number } = {};
+  const noOddsMatches: Record<number, { home: number; away: number }> = {};
 
   for (const match of matches) {
     const odds = await getMatchOdds(match.id);
     teamOdds[match.home] = odds.percentage.home;
     teamOdds[match.away] = odds.percentage.away;
+    if (odds.hadNoOdds) {
+      noOddsMatches[match.id] = { home: match.home, away: match.away };
+    }
     await rateLimit();
   }
 
@@ -70,9 +95,15 @@ const main = async () => {
 
         const teamId = teamMap[club.slug as keyof typeof teamMap];
         const percentage = teamOdds[teamId];
+        for (const [matchId, teams] of Object.entries(noOddsMatches)) {
+          if (teams.home === teamId || teams.away === teamId) {
+            addPlayerSlugToOverwriteOdds(Number(matchId), player.slug);
+          }
+        }
         const predictedScore = Math.round(
           percentage > 0 ? ((percentage - 50) / 100 + 1) * algoInput : 0,
         );
+        console.log(player.slug, predictedScore);
         players.push({ teamId, ...player, predictedScore });
       }
     }
@@ -82,48 +113,47 @@ const main = async () => {
     (a, b) => b.predictedScore - a.predictedScore,
   );
 
-  if (pointsPerPound) {
-    const finalPlayers = [];
-    for (const player of sortedPlayers.filter(
-      (player) => player.predictedScore > minPredictedScore,
-    )) {
-      const cheapestCardValue = await getCheapestCardValue(
-        player.slug,
-        scarcity,
-        inSeason,
-      );
-      const { predictedPowerLineupScore } =
+  const finalPlayers = [];
+  for (const player of sortedPlayers.filter(
+    (player) => player.predictedScore > minPredictedScore,
+  )) {
+    const cheapestCardValue = await getCheapestCardValue(
+      player.slug,
+      scarcity,
+      inSeason,
+    );
+    let predictedPowerLineupScore = player.predictedScore;
+    if (isLineupOddsEnabled) {
+      const getPredictedPowerLineupScore =
         await getSorarePredictedPowerLineupScore(
           player.slug,
           player.predictedScore,
         );
-      if (predictedPowerLineupScore > minPredictedScore) {
-        const pointsPerPound = predictedPowerLineupScore / cheapestCardValue;
-        finalPlayers.push({
-          ...player,
-          cheapestCardValue,
-          pointsPerPound,
-          predictedPowerLineupScore,
-        });
-      }
-      await rateLimit();
+      predictedPowerLineupScore =
+        getPredictedPowerLineupScore.predictedPowerLineupScore;
     }
-    fs.writeFileSync(
-      'json/purchase-recommendations.json',
-      JSON.stringify(
-        finalPlayers.sort((a, b) => b.pointsPerPound - a.pointsPerPound),
-        null,
-        2,
-      ),
-      'utf8',
-    );
-  } else {
-    fs.writeFileSync(
-      'json/purchase-recommendations.json',
-      JSON.stringify(sortedPlayers, null, 2),
-      'utf8',
-    );
+    if (predictedPowerLineupScore > minPredictedScore) {
+      const pointsPerPound = predictedPowerLineupScore / cheapestCardValue;
+      finalPlayers.push({
+        ...player,
+        cheapestCardValue,
+        pointsPerPound,
+        predictedPowerLineupScore,
+      });
+    }
+    await rateLimit();
   }
+  fs.writeFileSync(
+    'json/purchase-recommendations.json',
+    JSON.stringify(
+      finalPlayers
+        .sort((a, b) => b.pointsPerPound - a.pointsPerPound)
+        .filter((player) => !!player.pointsPerPound),
+      null,
+      2,
+    ),
+    'utf8',
+  );
 };
 
 main();

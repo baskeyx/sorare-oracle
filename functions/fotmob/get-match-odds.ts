@@ -1,4 +1,65 @@
 import axios from 'axios';
+import fs from 'fs';
+import path from 'path';
+
+const OVERWRITE_ODDS_PATH = path.join(
+  __dirname,
+  '../../data/overwrite-odds.json',
+);
+
+export type OverwriteOddsEntry = {
+  home: number;
+  away: number;
+  playerSlugs: string[];
+};
+
+const getOverwriteOdds = (): Record<string, OverwriteOddsEntry> => {
+  try {
+    const raw = fs.readFileSync(OVERWRITE_ODDS_PATH, 'utf8');
+    const data = JSON.parse(raw);
+    return typeof data === 'object' && data !== null ? data : {};
+  } catch {
+    return {};
+  }
+};
+
+const writeOverwriteOddsEntry = (matchId: number, entry: OverwriteOddsEntry) => {
+  const existing = getOverwriteOdds();
+  existing[String(matchId)] = entry;
+  fs.writeFileSync(
+    OVERWRITE_ODDS_PATH,
+    JSON.stringify(existing, null, 2),
+    'utf8',
+  );
+};
+
+/** Add a player slug to the overwrite entry for a match (e.g. when that match had no odds). */
+export const addPlayerSlugToOverwriteOdds = (
+  matchId: number,
+  slug: string,
+) => {
+  const existing = getOverwriteOdds();
+  const key = String(matchId);
+  const entry = existing[key] ?? {
+    home: 0,
+    away: 0,
+    playerSlugs: [],
+  };
+  if (!entry.playerSlugs.includes(slug)) {
+    entry.playerSlugs = [...entry.playerSlugs, slug];
+    existing[key] = entry;
+    fs.writeFileSync(
+      OVERWRITE_ODDS_PATH,
+      JSON.stringify(existing, null, 2),
+      'utf8',
+    );
+  }
+};
+
+const oddsToPercentage = (odds: { home: number; away: number }) => ({
+  home: Number.isFinite(odds.home) && odds.home > 0 ? 100 / odds.home : 0,
+  away: Number.isFinite(odds.away) && odds.away > 0 ? 100 / odds.away : 0,
+});
 
 const getOddsFromResponse = (data: {
   odds?: {
@@ -14,6 +75,20 @@ const getOddsFromResponse = (data: {
 };
 
 const getMatchOdds = async (matchId: number) => {
+  const overwrite = getOverwriteOdds();
+  const key = String(matchId);
+  const overwriteEntry = overwrite[key];
+
+  if (overwriteEntry) {
+    const odds = {
+      home: overwriteEntry.home,
+      away: overwriteEntry.away,
+    };
+    const percentage = oddsToPercentage(odds);
+    const hadNoOdds = overwriteEntry.home === 0 && overwriteEntry.away === 0;
+    return { matchId, odds, percentage, hadNoOdds };
+  }
+
   const [bet365, betfair, skybet, paddypower] = await Promise.allSettled([
     axios(
       `https://www.fotmob.com/api/matchOdds?matchId=${matchId}&ccode3=GBR&bettingProvider=Bet365_UK+affiliate`,
@@ -38,9 +113,15 @@ const getMatchOdds = async (matchId: number) => {
   }
 
   if (results.length === 0) {
-    throw new Error(
-      `Failed to fetch odds for match ${matchId}: all betting provider requests failed`,
-    );
+    const placeholder: OverwriteOddsEntry = {
+      home: 0,
+      away: 0,
+      playerSlugs: [],
+    };
+    writeOverwriteOddsEntry(matchId, placeholder);
+    const odds = { home: 0, away: 0 };
+    const percentage = oddsToPercentage(odds);
+    return { matchId, odds, percentage, hadNoOdds: true };
   }
 
   const odds =
@@ -51,10 +132,8 @@ const getMatchOdds = async (matchId: number) => {
           away: results.reduce((sum, r) => sum + r.away, 0) / results.length,
         };
 
-  const percentage = { home: 0, away: 0 };
-  percentage.home = 100 / Number(odds.home);
-  percentage.away = 100 / Number(odds.away);
-  return { matchId, odds, percentage };
+  const percentage = oddsToPercentage(odds);
+  return { matchId, odds, percentage, hadNoOdds: false };
 };
 
 export default getMatchOdds;

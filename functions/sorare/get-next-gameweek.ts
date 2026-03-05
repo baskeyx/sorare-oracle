@@ -4,11 +4,16 @@ dotenv.config();
 
 const { SRJWT, SRAPIKEY } = process.env;
 
-const getNextSo5Gameweek = async () => {
-  const query = `
-    query {
+const getNextSo5Gameweek = async (slug: string | null = null) => {
+  const query =
+    `
+    query` +
+    (slug ? `($slug: String!)` : '') +
+    ` {
       so5 {
-        so5Fixture {
+        so5Fixture` +
+    (slug ? `(slug: $slug)` : '') +
+    `{
           slug
           startDate
           endDate
@@ -23,7 +28,7 @@ const getNextSo5Gameweek = async () => {
     },
   });
 
-  const data = await graphQLClient.request(query);
+  const data = await graphQLClient.request(query, slug ? { slug } : undefined);
   const {
     slug: gameweekSlug,
     startDate: gameweekStart,
